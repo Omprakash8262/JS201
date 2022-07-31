@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+</head>
+<body>
+
+    <form action="" onsubmit="storeData(event)" id="student_form">
+      
+        <input type="text" placeholder="Enter Name" id="name">
+      <input type="text" placeholder="Course" id="course">
+      <input type="number" placeholder="Enter unit number" id="unit">
+      <input type="text" placeholder="Image" id="image">
+      <input type="number" placeholder="Ft-web Batch no" id="batch" >
+      <input type="submit">
+    
+    </form>
+    
+</body>
+</html>
+
+<script>
+  
+function studentCF (n , c , u , i , b ) {
+   this.name =n;
+   this.course=c;
+   this.unit=u;
+   this.image=i;
+   this.batch=`FT-WEb ${b}`;
+  }
+
+
+
+
+
+    function storeData(event){
+
+  event.preventDefault();
+
+let form = document.getElementById("student_form");
+
+let sname = form.name.value;
+let course = form.course.value;
+let unit = form.unit.value;
+let image = form.image.value;
+let batch = form.batch.value;
+
+  let s1 =new studentCF(sname , course , unit , image , batch);
+  
+  let data = JSON.parse(localStorage.getItem('students')) || [] ;
+  
+  data.push(s1);
+
+  localStorage.setItem("students" ,JSON.stringify(data));
+  
+  //console.log(s1);
+  
+
+    }
+
+function calculate () {
+let data = JSON.parse(localStorage.getItem('students')) || [] ;
+
+let obj ={};
+
+for(let i=0 ; i<data.length ;i++){
+     let n = data[i]["batch"]
+    if(obj[n]==undefined){
+       obj[n] = 1;
+    }else{
+        obj[n]++;
+    }
+}
+
+return (obj);
+
+}
+
+console.log(calculate());
+
+
+
+
+</script>
